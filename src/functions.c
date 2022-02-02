@@ -162,6 +162,11 @@ void insert_student(student **table) {
     char *student_name = read_line_keyboard(stdin);
     int course_index;
 
+    float new_mark;
+
+    printf("\n\t\tEnter the mark of the student: ");
+    scanf("%f", &new_mark);
+
     printf("\n\n");
 
     for (int i = 0; i < 7; i++) {
@@ -175,6 +180,7 @@ void insert_student(student **table) {
 
 
     student *st = init_student(student_name);
+    st->mark = new_mark;
 
     if (course_index >= 1 && course_index <= 7) {
         ll_insert(&(table[course_index - 1]->next), st);
@@ -452,4 +458,51 @@ void modification(student **table) {
             break;
         }
     } while(choice != 0);
+}
+
+void sort_student_list(student **table) {
+
+    printf("\n\n");
+
+    for (int i = 0; i < 7; i++) {
+        printf("\t\t\t|%d --> %-21s|\n", i+1, table[i]->name);
+    }
+
+
+
+    int course_index;
+    printf("\n\t\tPlease Enter the course to be sorted: ");
+    scanf("%d", &course_index);
+
+
+
+    if (course_index >= 1 && course_index <= 7) {
+        student *head = table[course_index - 1];
+        student *first = head;
+        student *second = first;
+        
+
+        while (head != NULL) {
+            second = first;
+            while (second->next != NULL) {
+                if (second->mark > second->next->mark) {
+                    char *tmp_name = second->name;
+                    second->name = second->next->name;
+                    second->next->name = tmp_name;
+
+
+                    float tmp_mark = second->mark;
+                    second->mark = second->next->mark;
+                    second->next->mark = tmp_mark; 
+                }
+                second = second->next;
+            }
+            head = head->next;
+        }
+
+        ll_print(table[course_index - 1]);
+
+    } else {
+        printf("\n\tWrong choice!\n");
+    }
 }

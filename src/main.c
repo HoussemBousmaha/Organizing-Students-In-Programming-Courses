@@ -3,6 +3,9 @@
 
 
 
+
+
+
 int main() {
 
     char file_name[] = "../in/Participants.txt";
@@ -22,8 +25,12 @@ int main() {
     printf("\n\nWelcome To Our Program\n");
 
 
+
     do {
-        printf("\n\tYour have several choices: \n\n\t\t0: exit\n\t\t1: traversal\n\t\t2: modification\n");
+        printf("\n\tYour have several choices: \n\n\t\t0: exit");
+        printf("\n\t\t1: traversal");
+        printf("\n\t\t2: modification");
+        printf("\n\t\t3: sorting courses\n");
         printf("\n\tPlease select a choice: ");
         scanf("%d", &choice);
 
@@ -39,6 +46,10 @@ int main() {
         case 2:
             modification(table);
             break;
+
+        case 3:
+            sort_student_list(table);
+            break;
         }
     } while(choice != 0);
 
@@ -48,4 +59,3 @@ int main() {
 
     return 0;
 }
-

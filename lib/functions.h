@@ -26,11 +26,14 @@ void insert_student(student **table);
 void delete_student(student **table);
 void update_mark(student **table);
 
+void sort_student_list(student **table);
+
 
 
 
 void init_structure(student *table[], char *content);
 void traversal(student **table);
+void modification(student **table);
 
 
 int get_mark_student(student **table);
