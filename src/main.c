@@ -19,12 +19,11 @@ int main() {
 
 
     int choice;
-    printf("Welcome To Our Program\n");
-
+    printf("\n\nWelcome To Our Program\n");
 
 
     do {
-        printf("\n\tYour have several choices: \n\n\t\t0: exit\n\t\t1: traversal\n\t\t2: ?\n");
+        printf("\n\tYour have several choices: \n\n\t\t0: exit\n\t\t1: traversal\n\t\t2: modification\n");
         printf("\n\tPlease select a choice: ");
         scanf("%d", &choice);
 
@@ -38,14 +37,15 @@ int main() {
             break;
 
         case 2:
-            printf("\n\tNot Emplemented yet!\t\n");
+            modification(table);
             break;
         }
     } while(choice != 0);
 
 
-    printf("\n\tThank you for using our program! good luck\n\n");
+    printf("\nThank you for using our program! good luck\n\n");
 
 
     return 0;
 }
+

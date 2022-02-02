@@ -16,11 +16,17 @@ int number_of_lines(char *content);
 float float_rand( float min, float max );
 
 
+void ll_insert(student **head, student *new_student);
+bool ll_delete(student *head, char *student_name);
+student *ll_search(student *head, char *name);
+void ll_print(student *head);
 
 student *init_student(char *name);
-void ll_insert(student **head, student *new_student);
-void ll_print(student *head);
-student *ll_search(student *head, char *name);
+void insert_student(student **table);
+void delete_student(student **table);
+void update_mark(student **table);
+
+
 
 
 void init_structure(student *table[], char *content);

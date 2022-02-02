@@ -131,6 +131,117 @@ student *ll_search(student *head, char *name) {
     return NULL;
 }
 
+bool ll_delete(student *head, char *student_name) {
+
+    // only delete if exist!
+
+    if (strcmp(head->name, student_name) == 0) {
+        printf("\n\tCan't delete a course!\n");
+        return false;
+    }
+
+    student *prev = NULL;
+    int deleted = false;
+    while (head->next != NULL) {
+        if (strcmp(head->name, student_name) == 0) {
+            prev->next = head->next;
+            deleted = true;
+            return true;
+        } 
+        prev = head;
+        head = head->next;
+    }
+
+    return false;
+}
+
+void insert_student(student **table) {
+
+    printf("\n\t\tEnter the student name: ");
+    fflush(stdin);
+    char *student_name = read_line_keyboard(stdin);
+    int course_index;
+
+    printf("\n\n");
+
+    for (int i = 0; i < 7; i++) {
+        printf("\t\t\t|%d --> %-21s|\n", i+1, table[i]->name);
+    }
+
+    printf("\n\t\tPlease Enter the course of the new student: ");
+    scanf("%d", &course_index);
+
+
+
+
+    student *st = init_student(student_name);
+
+    if (course_index >= 1 && course_index <= 7) {
+        ll_insert(&(table[course_index - 1]->next), st);
+        printf("\n\t\"%s\" was inserted successfully!\n", student_name);
+        ll_print(table[course_index - 1]);
+    } else {
+        printf("\n\tWrong choice!\n");
+        printf("\n\t\"%s\" was not inserted successfully!\n", student_name);
+    }
+}
+
+
+void delete_student(student **table) {
+
+    printf("\n\t\tEnter the student name: ");
+    fflush(stdin);
+    char *student_name = read_line_keyboard(stdin);
+
+    bool deleted = false;
+    student *head;
+    for (int i = 0; i < 7; i++) {
+        head = table[i];
+        deleted = ll_delete(head->next, student_name);
+        if (deleted == true) break;
+        // ll_print(head);
+    }
+    if (deleted == false) {
+        printf("\n\t\"%s\" does not exist!\n", student_name);
+    } else {
+        printf("\n\t\"%s\" was deleted successfully\n", student_name);
+        ll_print(head);
+    }
+}
+
+void update_mark(student **table) {
+
+    printf("\n\t\tEnter the student name: ");
+    fflush(stdin);
+    char *student_name = read_line_keyboard(stdin);
+
+
+
+
+    bool updated = false;
+    student *head;
+    student *st = NULL;
+    for (int i = 0; i < 7; i++) {
+        head = table[i];
+        st = ll_search(head->next, student_name);
+        if (st != NULL) {
+            float new_mark;
+            printf("\n\n\t\tEnter the new mark: ");
+            scanf("%f", &new_mark);
+            st->mark = new_mark;
+            updated = true;
+            break;
+        }
+        // ll_print(head);
+    }
+    if (updated == false) {
+        printf("\n\t\"%s\" does not exist!\n", student_name);
+    } else {
+        printf("\n\t\"%s\"'s mark was updated successfuly to \"%-2.2f\"\n", student_name, st->mark);
+        ll_print(head);
+    }
+}
+
 void init_structure(student *table[], char *content) {
     srand(time(NULL));
 
@@ -277,6 +388,7 @@ void traversal(student **table) {
         printf("\n\n\tWelcome to traversal section !\n");
       
     do {
+        printf("\t---------------------------------------");
         printf("\n\t\tyou have several choices: \n\n");
         printf("\t\t0: go back\n");
         printf("\t\t1: get the mark of a given student\n");
@@ -305,4 +417,39 @@ void traversal(student **table) {
         }
     } while(choice != 0);
 
+}
+
+void modification(student **table) {
+    int choice;
+        printf("\n\n\tWelcome to modification section !\n");
+      
+    do {
+        printf("\t---------------------------------------");
+        printf("\n\t\tyou have several choices: \n\n");
+        printf("\t\t0: go back\n");
+        printf("\t\t1: insert a new student\n");
+        printf("\t\t2: delete an existing student\n");
+        printf("\t\t3: update a mark of an existing student\n\n");
+        printf("\t\tEnter your choice: ");
+        scanf("%d", &choice);
+
+        system("cls");
+
+        printf("\n\n");
+
+        switch (choice)
+        {
+        case 1:
+            insert_student(table);
+            break;
+        
+        case 2:
+            delete_student(table);
+            break;
+
+        case 3:
+            update_mark(table);
+            break;
+        }
+    } while(choice != 0);
 }
